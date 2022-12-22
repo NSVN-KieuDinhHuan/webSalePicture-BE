@@ -22,7 +22,13 @@ public class CartDetail {
 
     private int quantity;
 
-    @OneToMany
+    @ManyToMany
     private List<ProductOption> productOptions;
+
+    public CartDetail(Long dishId, int quantity, List<ProductOption> productOptions) {
+        this.dishId = dishId;
+        this.quantity = quantity;
+        this.productOptions = productOptions;
+    }
 
 }

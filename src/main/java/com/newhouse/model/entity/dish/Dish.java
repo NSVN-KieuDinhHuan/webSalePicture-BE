@@ -44,35 +44,35 @@ public class Dish {
     @Column(columnDefinition = "varchar(1000)")
     private String specifications;
 
-    @NotNull
+
     @Column(columnDefinition = "varchar(1000) default 'dish-default.jpg'")
     private String image01;
 
-    @NotNull
+
     @Column(columnDefinition = "varchar(1000) default 'dish-default.jpg'")
     private String image02;
 
-    @NotNull
+
     @Column(columnDefinition = "varchar(1000) default 'dish-default.jpg'")
     private String image03;
 
-    @NotNull
+
     @Column(columnDefinition = "varchar(1000) default 'dish-default.jpg'")
     private String image04;
 
-    @NotNull
+
     @Column(columnDefinition = "varchar(1000) default 'dish-default.jpg'")
     private String image05;
 
-    @NotNull
+
     @Column(columnDefinition = "varchar(1000) default 'dish-default.jpg'")
     private String image06;
 
-    @NotNull
+
     @Column(columnDefinition = "varchar(1000) default 'dish-default.jpg'")
     private String image07;
 
-    @NotNull
+
     @Column(columnDefinition = "varchar(1000) default 'dish-default.jpg'")
     private String image08;
 

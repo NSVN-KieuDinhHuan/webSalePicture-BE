@@ -21,7 +21,7 @@ public class OrderDetail {
 
     private int quantity;
 
-    @OneToMany
+    @ManyToMany
     private List<ProductOption> optionList;
 
     public OrderDetail(Long dishId, int quantity, List<ProductOption> optionList) {
@@ -30,10 +30,7 @@ public class OrderDetail {
         this.optionList = optionList;
     }
 
-    public OrderDetail(Long dishId, int quantity) {
-        this.dishId = dishId;
-        this.quantity = quantity;
 
-    }
+
 
 }

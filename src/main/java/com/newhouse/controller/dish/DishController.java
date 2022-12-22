@@ -1,5 +1,6 @@
 package com.newhouse.controller.dish;
 
+import com.newhouse.model.entity.Cart;
 import com.newhouse.model.entity.dish.Dish;
 import com.newhouse.model.entity.dish.DishForm;
 import com.newhouse.service.dish.IDishService;
@@ -41,7 +42,11 @@ public class DishController {
         }
         return new ResponseEntity<>(dishes, HttpStatus.OK);
     }
-
+    @GetMapping("all")
+    public ResponseEntity<?> findAll() {
+        Iterable<Dish> dishAll = dishService.findAll();
+        return new ResponseEntity<>(dishAll, HttpStatus.OK);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Dish> findDishById(@PathVariable Long id) {

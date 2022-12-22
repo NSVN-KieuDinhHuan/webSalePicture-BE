@@ -45,6 +45,12 @@ public class CartController {
         cart.setId(id);
         return new ResponseEntity<>(cartService.save(cart), HttpStatus.OK);
     }
+    @GetMapping("/delete/{id}")
+    public ResponseEntity<?> deleteDetailCart( @PathVariable Long id) {
+        cartDetailService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity<?> findAllCart(){
         Iterable<Cart> cartAll = cartService.findAll();
@@ -75,5 +81,19 @@ public class CartController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getAllDetailByCartId(@PathVariable Long id){
        return new ResponseEntity<>(cartDetailService.getCartDetailByCartID(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/increase/{cartDetailId}")
+    public ResponseEntity<?> increaseDishQuantityInCart( @PathVariable Long cartDetailId) {
+        CartDetail cartDetail= cartDetailService.findById(cartDetailId).get();
+        cartDetail.setQuantity(cartDetail.getQuantity()+1);
+        return new ResponseEntity<>(cartDetailService.save(cartDetail), HttpStatus.OK);
+    }
+
+    @GetMapping("/decrease/{cartDetailId}")
+    public ResponseEntity<?> decreaseDishQuantityInCart(@PathVariable Long cartDetailId) {
+        CartDetail cartDetail= cartDetailService.findById(cartDetailId).get();
+        cartDetail.setQuantity(cartDetail.getQuantity()-1);
+        return new ResponseEntity<>(cartDetailService.save(cartDetail), HttpStatus.OK);
     }
 }
