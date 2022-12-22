@@ -53,5 +53,10 @@ public class UserService implements IUserService{
         return userRepository.findByEmail(email);
     }
 
+    @Override
+    public Optional<User> findByPhone(String phone) {
+        return userRepository.findByPhone(phone);
+    }
+
 
 }

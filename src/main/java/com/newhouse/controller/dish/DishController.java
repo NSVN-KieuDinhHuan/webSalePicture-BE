@@ -1,5 +1,6 @@
 package com.newhouse.controller.dish;
 
+import com.newhouse.model.entity.Cart;
 import com.newhouse.model.entity.dish.Dish;
 import com.newhouse.model.entity.dish.DishForm;
 import com.newhouse.service.dish.IDishService;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
 @CrossOrigin("*")
 @RequestMapping("api/dishes")
 public class DishController {
-    public final int ITEM_PER_PAGE = 9;
+    public final int ITEM_PER_PAGE = 12;
 
     @Autowired
     private IDishService dishService;
@@ -41,7 +42,11 @@ public class DishController {
         }
         return new ResponseEntity<>(dishes, HttpStatus.OK);
     }
-
+    @GetMapping("all")
+    public ResponseEntity<?> findAll() {
+        Iterable<Dish> dishAll = dishService.findAll();
+        return new ResponseEntity<>(dishAll, HttpStatus.OK);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Dish> findDishById(@PathVariable Long id) {

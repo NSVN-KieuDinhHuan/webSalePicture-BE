@@ -44,24 +44,28 @@ public class AuthController {
             ErrorMessage errorMessage = new ErrorMessage("Mật khẩu nhập lại không khớp!");
             return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
         }
-        Optional<User> findUser = userService.findByUsername(userRegisterForm.getUsername());
+        Optional<User> findUser = userService.findByPhone(userRegisterForm.getPhone());
         if (findUser.isPresent()) {
-            ErrorMessage errorMessage = new ErrorMessage("Tên đăng nhập đã tồn tại!");
+            ErrorMessage errorMessage = new ErrorMessage("số điện thoại đã tồn tại!");
             return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
         }
 
-//        String email=userRegisterForm.getEmail();
-//        Optional<User> findUserByEmail = userService.findByEmail(email);
-//        if (findUserByEmail.isPresent()) {
-//            ErrorMessage errorMessage = new ErrorMessage("Địa chỉ email đã tồn tại!");
-//            return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
-//        }
-
+        Optional<User> checkmail = userService.findByEmail(userRegisterForm.getEmail());
+        if (checkmail.isPresent()) {
+            ErrorMessage errorMessage = new ErrorMessage("mail đã đã tồn tại!");
+            return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+        }
         User user = new User();
+        String phone=userRegisterForm.getPhone();
+        Optional<User> findUserByPhone = userService.findByPhone(phone);
+        if (findUserByPhone.isPresent()) {
+             user =findUserByPhone.get();
+        }
+
         user.setEmail(userRegisterForm.getEmail());
         user.setUsername(userRegisterForm.getUsername());
         user.setAddress(userRegisterForm.getAddress());
-        user.setPhone(userRegisterForm.getPassword());
+        user.setPhone(userRegisterForm.getPhone());
         String encodedPassword = passwordEncoder.encode(userRegisterForm.getPassword());
         user.setPassword(encodedPassword);
         Role role = new Role(2L, Role.ROLE_CUSTOMER);
@@ -87,10 +91,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user){
-//        String inputUsername = user.getUsername();
         String inputEmail = user.getEmail();
         String inputPassword = user.getPassword();
-//        Optional<User> findUser = userService.findByUsername(inputUsername);
         Optional<User> findUser = userService.findByEmail(inputEmail);
 
         if (!findUser.isPresent()) {

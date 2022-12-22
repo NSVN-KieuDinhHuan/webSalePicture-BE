@@ -24,7 +24,7 @@ public class OrderList {
 
     private Date createDate;
 
-    @OneToMany
+    @ManyToMany
     private List<OrderDetail> orderDetailList;
 
     @Column(columnDefinition = "TINYINT default 0")

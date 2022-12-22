@@ -20,4 +20,17 @@ public class Category {
     @NotNull
     @Column(columnDefinition = "VARCHAR(50)", nullable = false)
     private String name;
+
+    @Column(columnDefinition = "varchar(1000) default 'dish-default.jpg'")
+    private String image;
+
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(50)", nullable = false)
+    private String description;
+
+    @NotNull
+    @Column(columnDefinition = "VARCHAR(50)", nullable = false)
+    private int numberOfDishes;
+
+
 }

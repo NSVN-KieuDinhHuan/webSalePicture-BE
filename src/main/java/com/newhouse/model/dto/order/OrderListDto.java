@@ -11,14 +11,13 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderListDto {
     private Long id;
-    private Long userId;
+    private String userPhone;
     private Date createDate;
     private int status;
-    private List<Long> orderDetailList;
+    private List<OrderDetailDto> orderDetailList;
 
-    public OrderListDto(Long id, Long userId, Date createDate, int status, List<Long> orderDetailList) {
-        this.id = id;
-        this.userId = userId;
+    public OrderListDto(String userPhone, Date createDate, int status, List<OrderDetailDto> orderDetailList) {
+        this.userPhone = userPhone;
         this.createDate = createDate;
         this.status = status;
         this.orderDetailList = orderDetailList;
