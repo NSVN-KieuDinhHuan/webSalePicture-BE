@@ -1,9 +1,8 @@
 package com.newhouse.controller;
 
-import com.newhouse.model.entity.dish.Dish;
-import com.newhouse.model.entity.dish.DishForm;
 import com.newhouse.model.entity.dish.category.Category;
-import com.newhouse.model.entity.dish.category.CategoryDTO;
+import com.newhouse.model.entity.dish.category.CategoryDto;
+import com.newhouse.model.entity.dish.category.CategoryForm;
 import com.newhouse.service.category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +29,7 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<?> findAllCategories() {
-        Iterable<CategoryDTO> categoryDTOs = categoryService.getAllCategoryDTO();
+        Iterable<CategoryDto> categoryDTOs = categoryService.getAllCategoryDTO();
         return new ResponseEntity<>(categoryDTOs, HttpStatus.OK);
     }
 
@@ -41,8 +40,8 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Category> saveCategory(@ModelAttribute CategoryDTO categoryDTO) {
-        List<MultipartFile> img = categoryDTO.getImage();
+    public ResponseEntity<Category> saveCategory(@ModelAttribute CategoryForm categoryForm) {
+        List<MultipartFile> img = categoryForm.getImage();
         Category category = new Category();
         if (img != null && img.size() != 0) {
             long currentTime = System.currentTimeMillis();
@@ -55,11 +54,11 @@ public class CategoryController {
                     e.printStackTrace();
                 }
             });
-            category.setId(categoryDTO.getId());
+            category.setId(categoryForm.getId());
             category.setImage(fileName.get(0));
-            category.setName(categoryDTO.getName());
-            category.setDescription(categoryDTO.getDescription());
-            category.setNumberOfDishes(categoryDTO.getNumberOfDishes());
+            category.setName(categoryForm.getName());
+            category.setDescription(categoryForm.getDescription());
+            category.setNumberOfDishes(categoryForm.getNumberOfDishes());
             categoryService.save(category);
         }
         return new ResponseEntity<>(category, HttpStatus.OK);

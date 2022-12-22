@@ -1,7 +1,8 @@
 package com.newhouse.service.category;
 
 import com.newhouse.model.entity.dish.category.Category;
-import com.newhouse.model.entity.dish.category.CategoryDTO;
+import com.newhouse.model.entity.dish.category.CategoryDto;
+import com.newhouse.model.entity.dish.category.CategoryForm;
 import com.newhouse.repository.ICategoryRepository;
 import com.newhouse.service.dish.IDishService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,21 +41,23 @@ public class CategoryService implements ICategoryService{
     }
 
     @Override
-    public Iterable<CategoryDTO> getAllCategoryDTO() {
+    public Iterable<CategoryDto> getAllCategoryDTO() {
         Iterable<Category> categories = findAll();
-        List<CategoryDTO> categoryDTOs = new ArrayList<>();
+        List<CategoryDto> categoryDtos = new ArrayList<>();
 
         categories.forEach(
                 category -> {
                     int count = dishService.countDishByCategoriesIsContaining(category);
-                    CategoryDTO categoryDTO = new CategoryDTO();
+                    CategoryDto categoryDTO = new CategoryDto();
                     categoryDTO.setId(category.getId());
                     categoryDTO.setName(category.getName());
+                    categoryDTO.setDescription(category.getDescription());
+                    categoryDTO.setImage(category.getImage());
                     categoryDTO.setNumberOfDishes(count);
-                    categoryDTOs.add(categoryDTO);
+                    categoryDtos.add(categoryDTO);
                 }
         );
-        return categoryDTOs;
+        return categoryDtos;
     }
 
     @Override
