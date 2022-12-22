@@ -23,11 +23,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'mysql:mysql-connector-java'
+
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.5.0'
 
 
     //Sercurity

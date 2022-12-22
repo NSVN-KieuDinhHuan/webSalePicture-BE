@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @CrossOrigin("*")
 @RequestMapping("api/dishes")
 public class DishController {
-    public final int ITEM_PER_PAGE = 9;
+    public final int ITEM_PER_PAGE = 12;
 
     @Autowired
     private IDishService dishService;
