@@ -27,8 +27,19 @@ public class OptionController {
     @PostMapping
     public ResponseEntity<ProductOption> saveOption(@ModelAttribute ProductOption productOption) {
         ProductOption ProductOption =productOptService.save(productOption);
-        new ResponseEntity<>(productOptService.save(ProductOption), HttpStatus.CREATED);
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(productOptService.save(ProductOption), HttpStatus.CREATED);
+    }
+    @PostMapping ("/{id}")
+    public ResponseEntity<ProductOption> update(@PathVariable Long id, @ModelAttribute ProductOption productOption) {
+        Optional<ProductOption> ProductOption = productOptService.findById(id);
+        ProductOption opt =ProductOption.get();
+        if(!ProductOption.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        opt.setName(productOption.getName());
+        opt.setPrice(productOption.getPrice());
+        opt.setGroup(productOption.getGroup());
+        return new ResponseEntity<>(productOptService.save(opt), HttpStatus.CREATED);
     }
 
     @GetMapping("/{optionId}")

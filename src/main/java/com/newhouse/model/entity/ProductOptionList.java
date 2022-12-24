@@ -22,7 +22,4 @@ public class ProductOptionList {
     @Column(columnDefinition = "VARCHAR(50)", nullable = false)
     private String name;
 
-    @ManyToMany
-    private List<ProductOption> OptionList;
-
 }

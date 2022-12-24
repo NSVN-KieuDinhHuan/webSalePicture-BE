@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/optionlist")
+@RequestMapping("/api/option-group")
 public class OptionListController {
     @Autowired
     private IProductOptListService productOptListService;
@@ -32,15 +32,6 @@ public class OptionListController {
         ProductOptionList productOptionList =new ProductOptionList();
         productOptionList.setName(optionListDTO.getName());
         new ResponseEntity<>(productOptListService.save(productOptionList), HttpStatus.CREATED);
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
-
-    @PostMapping("/{optionListid}/{optionid}")
-    public ResponseEntity<ProductOptionList> addOption (@PathVariable Long optionListid,@PathVariable Long optionid) {
-        Optional<ProductOptionList> productOptionList =productOptListService.findById(optionListid);
-        Optional<ProductOption> productOption =productOptService.findById(optionid);
-        productOptionList.get().getOptionList().add(productOption.get());
-        new ResponseEntity<>(productOptListService.save(productOptionList.get()), HttpStatus.CREATED);
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 

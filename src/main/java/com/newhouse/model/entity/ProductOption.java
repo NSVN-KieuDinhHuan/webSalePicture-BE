@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,4 +25,7 @@ public class ProductOption {
     @Column(nullable = false)
     @NotNull
     private double price;
+
+    @ManyToOne
+    private ProductOptionList Group;
 }

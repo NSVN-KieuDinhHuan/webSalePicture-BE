@@ -1,5 +1,6 @@
 package com.newhouse.controller;
 
+import com.newhouse.model.entity.ProductOption;
 import com.newhouse.model.entity.dish.Dish;
 import com.newhouse.model.entity.dish.category.Category;
 import com.newhouse.model.entity.dish.category.CategoryDto;
@@ -41,7 +42,11 @@ public class CategoryController {
         return new ResponseEntity<>(top5Categories, HttpStatus.OK);
     }
 
-
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getOptionList(@PathVariable Long id){
+        Optional<Category> ProductOption = categoryService.findById(id);
+        return new ResponseEntity<>(ProductOption, HttpStatus.OK);
+    }
     @DeleteMapping("delete/{id}")
     public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
         Optional<Category> dishOptional = categoryService.findById(id);

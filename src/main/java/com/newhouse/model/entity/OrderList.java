@@ -27,7 +27,7 @@ public class OrderList {
     @ManyToMany
     private List<OrderDetail> orderDetailList;
 
-    @Column(columnDefinition = "TINYINT default 0")
+    @Column()
     private int status;
 
 }
