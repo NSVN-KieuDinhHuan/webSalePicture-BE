@@ -2,9 +2,8 @@ package com.newhouse.service.category;
 
 import com.newhouse.model.entity.dish.category.Category;
 import com.newhouse.model.entity.dish.category.CategoryDto;
-import com.newhouse.model.entity.dish.category.CategoryForm;
 import com.newhouse.repository.ICategoryRepository;
-import com.newhouse.service.dish.IDishService;
+import com.newhouse.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,7 @@ public class CategoryService implements ICategoryService{
     private ICategoryRepository categoryRepository;
 
     @Autowired
-    private IDishService dishService;
+    private IProductService dishService;
 
     @Override
     public Iterable<Category> findAll() {

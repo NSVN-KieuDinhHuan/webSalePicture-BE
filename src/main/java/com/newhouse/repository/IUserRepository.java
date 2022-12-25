@@ -1,20 +1,18 @@
 package com.newhouse.repository;
 
 
-import com.newhouse.model.entity.dish.Dish;
+import com.newhouse.model.entity.dish.Product;
 import com.newhouse.model.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 @Repository
 public interface IUserRepository extends JpaRepository<User, Long> {
     @Query(value = "select * from dishes limit :limit", nativeQuery = true)
-    Iterable<Dish> findAllDishes(@Param(value = "limit") int limit);
+    Iterable<Product> findAllDishes(@Param(value = "limit") int limit);
 
     Optional<User> findByUsername(String username);
 

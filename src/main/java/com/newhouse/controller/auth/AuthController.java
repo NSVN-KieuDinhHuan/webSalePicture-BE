@@ -74,19 +74,6 @@ public class AuthController {
 
         return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
     }
-    @PostMapping ("/register/buynow")
-    public ResponseEntity<?> registerBuyNow (@RequestBody UserRegisterForm userRegisterForm){
-        User user = new User();
-        user.setEmail(userRegisterForm.getEmail());
-        user.setFullName(userRegisterForm.getUsername());
-        user.setAddress(userRegisterForm.getAddress());
-        user.setPhone(userRegisterForm.getPhone());
-        Role role = new Role(2L, Role.ROLE_CUSTOMER);
-        user.setImage("user-default.jpg");
-        user.setRole(role);
-
-        return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
-    }
 
 
     @PostMapping("/login")

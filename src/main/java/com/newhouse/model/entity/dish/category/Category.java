@@ -21,7 +21,7 @@ public class Category {
     @Column(columnDefinition = "VARCHAR(50)", nullable = false)
     private String name;
 
-    @Column(columnDefinition = "varchar(1000) default 'dish-default.jpg'")
+    @Column(columnDefinition = "varchar(1000) default 'product-default.jpg'")
     private String image;
 
     @NotNull

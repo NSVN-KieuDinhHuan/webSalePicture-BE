@@ -1,9 +1,8 @@
 package com.newhouse.controller.user;
 
-import com.newhouse.model.dto.order.OrderListDto;
 import com.newhouse.model.entity.user.User;
 import com.newhouse.model.entity.user.UserInfoForm;
-import com.newhouse.service.order.IOrderListService;
+import com.newhouse.service.order.IOrderGroupService;
 import com.newhouse.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -28,7 +26,7 @@ public class UserController {
 
 
     @Autowired
-    private IOrderListService orderService;
+    private IOrderGroupService orderService;
 
     @Value("${file-upload}")
     private String uploadPath;

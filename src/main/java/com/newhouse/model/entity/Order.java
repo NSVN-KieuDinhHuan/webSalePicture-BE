@@ -11,8 +11,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cart")
-public class Cart {
+@Table(name = "Ordertbl")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,15 +22,18 @@ public class Cart {
     private int quantity;
 
     @ManyToOne
-    private CartGroup cartGroup;
+    private OrderGroup OrderGroup;
 
     @ManyToMany
-    private List<Option> Options;
+    private List<Option> optionList;
 
-    public Cart(Long dishId, int quantity, List<Option> productOptions) {
+    public Order(Long dishId, int quantity, List<Option> optionList) {
         this.dishId = dishId;
         this.quantity = quantity;
-        this.Options = productOptions;
+        this.optionList = optionList;
     }
+
+
+
 
 }

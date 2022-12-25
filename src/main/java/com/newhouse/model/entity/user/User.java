@@ -1,6 +1,6 @@
 package com.newhouse.model.entity.user;
 
-import com.newhouse.model.entity.dish.Dish;
+import com.newhouse.model.entity.dish.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,7 +40,7 @@ public class User {
     private Role role;
 
     @OneToMany
-    private List<Dish> favorite;
+    private List<Product> favorite;
 
     private String fullName;
 

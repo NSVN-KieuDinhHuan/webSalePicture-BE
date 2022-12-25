@@ -1,7 +1,5 @@
 package com.newhouse.controller;
 
-import com.newhouse.model.entity.ProductOption;
-import com.newhouse.model.entity.dish.Dish;
 import com.newhouse.model.entity.dish.category.Category;
 import com.newhouse.model.entity.dish.category.CategoryDto;
 import com.newhouse.model.entity.dish.category.CategoryForm;
