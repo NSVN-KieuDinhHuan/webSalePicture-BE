@@ -41,11 +41,7 @@ public class OrderController {
         List<Order> orders=new ArrayList<>();
         for (int i = 0; i < orderDto.length; i++) {
             Order order = new Order();
-            List<Option> optionList=new ArrayList<>();
-            for (int j = 0; j < orderDto[i].getOptionList().size(); j++) {
-                Optional<Option> proOpt= optionService.findById( orderDto[i].getOptionList().get(i));
-                proOpt.ifPresent(optionList::add);
-            }
+            List<Option> optionList=orderDto[i].getOptionList();
             OrderGroup orderGroup= orderDto[i].getOrderGroup();
             order.setDishId(orderDto[i].getDishId());
             order.setOptionList(optionList);
