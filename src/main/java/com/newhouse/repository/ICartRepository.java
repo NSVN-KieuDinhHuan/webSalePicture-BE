@@ -21,7 +21,7 @@ public interface ICartRepository extends JpaRepository<Cart, Long> {
             "join option m on p.options_id=m.id where p.cart_id= :id", nativeQuery = true)
     List<Object> getOptionbyCartDetail (@Param(value = "id") Long id);
 
-    @Query(value = "DELETE cart.* FROM cart  WHERE  = :cartGroupId", nativeQuery = true)
+    @Query(value = "DELETE  FROM cart p WHERE  p.cart_group_id = :cartGroupId", nativeQuery = true)
     void deleteCartByCartGroupId(
             @Param(value = "cartGroupId") int cartGroupId);
 }

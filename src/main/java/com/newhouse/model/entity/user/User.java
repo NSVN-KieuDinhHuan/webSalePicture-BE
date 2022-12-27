@@ -19,17 +19,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Không được để trống")
-    @Column(unique = true)
     private String username;
 
     @Email
     @Column(unique = true)
     @NotBlank(message = "Không được để trống")
     private String email;
-    @NotEmpty(message = "Không được để trống")
-    @Size(min = 8)
-    private String password;
+
+    @NotBlank(message = "Không được để trống")
     @Pattern(regexp = "^[0](\\\\+\\\\d{1,3}\\\\s?)?((\\\\(\\\\d{3}\\\\)\\\\s?)|(\\\\d{3})(\\\\s|-?))(\\\\d{3}(\\\\s|-?))(\\\\d{3})(\\\\s?(([E|e]xt[:|.|]?)|x|X)(\\\\s?\\\\d+))?")
     private String phone;
 
@@ -39,10 +36,8 @@ public class User {
     @ManyToOne
     private Role role;
 
-    @OneToMany
-    private List<Product> favorite;
-
     private String fullName;
 
     private String address;
+    private String password;
 }

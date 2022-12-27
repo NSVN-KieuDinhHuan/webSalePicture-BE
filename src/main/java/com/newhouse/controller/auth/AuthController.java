@@ -38,11 +38,19 @@ public class AuthController {
 
     @PostMapping ("/register")
     public ResponseEntity<?> register (@RequestBody UserRegisterForm userRegisterForm){
-        userRegisterForm.setPassword("Newhouse2022");
-        userRegisterForm.setConfirmPassword("Newhouse2022");
-        if (!userRegisterForm.confirmPasswordMatch()) {
-            ErrorMessage errorMessage = new ErrorMessage("Mật khẩu nhập lại không khớp!");
-            return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+        User user = new User();
+        String phone=userRegisterForm.getPhone();
+        Optional<User> findUserByPhone = userService.findByPhone(phone);
+        if (findUserByPhone.isPresent()) {
+            user =findUserByPhone.get();
+        }
+        if(userRegisterForm.getPassword()!=null) {
+            if (!userRegisterForm.confirmPasswordMatch()) {
+                ErrorMessage errorMessage = new ErrorMessage("Mật khẩu nhập lại không khớp!");
+                return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+            }
+            String encodedPassword = passwordEncoder.encode(userRegisterForm.getPassword());
+            user.setPassword(encodedPassword);
         }
         Optional<User> findUser = userService.findByPhone(userRegisterForm.getPhone());
         if (findUser.isPresent()) {
@@ -55,24 +63,18 @@ public class AuthController {
             ErrorMessage errorMessage = new ErrorMessage("mail đã đã tồn tại!");
             return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
         }
-        User user = new User();
-        String phone=userRegisterForm.getPhone();
-        Optional<User> findUserByPhone = userService.findByPhone(phone);
-        if (findUserByPhone.isPresent()) {
-             user =findUserByPhone.get();
-        }
+
 
         user.setEmail(userRegisterForm.getEmail());
         user.setUsername(userRegisterForm.getUsername());
         user.setAddress(userRegisterForm.getAddress());
         user.setPhone(userRegisterForm.getPhone());
-        String encodedPassword = passwordEncoder.encode(userRegisterForm.getPassword());
-        user.setPassword(encodedPassword);
+
         Role role = new Role(2L, Role.ROLE_CUSTOMER);
         user.setImage("user-default.jpg");
         user.setRole(role);
-
-        return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
 

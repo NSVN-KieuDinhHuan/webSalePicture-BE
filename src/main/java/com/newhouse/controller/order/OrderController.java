@@ -1,9 +1,11 @@
 package com.newhouse.controller.order;
 
 import com.newhouse.model.dto.order.OrderDto;
+import com.newhouse.model.entity.CartGroup;
 import com.newhouse.model.entity.Order;
 import com.newhouse.model.entity.Option;
 import com.newhouse.model.entity.OrderGroup;
+import com.newhouse.service.cart.ICartService;
 import com.newhouse.service.option.IOptionService;
 import com.newhouse.service.order.IOrderGroupService;
 import com.newhouse.service.order.IOrderService;
@@ -31,20 +33,36 @@ public class OrderController {
     @Autowired
     IOptionService optionService;
 
+    @Autowired
+    ICartService cartService;
+
     @PostMapping
-    public ResponseEntity<Order> saveOrderDetailList(@RequestBody OrderDto orderDto) {
-        Order order = new Order();
-        List<Option> optionList=new ArrayList<>();
-        for (int i = 0; i < orderDto.getProductOption().size(); i++) {
-            Optional<Option> proOpt= optionService.findById( orderDto.getProductOption().get(i));
-            proOpt.ifPresent(optionList::add);
+    public ResponseEntity<?> saveOrderDetailList(@RequestBody OrderDto[] orderDto) {
+        List<Order> orders=new ArrayList<>();
+        for (int i = 0; i < orderDto.length; i++) {
+            Order order = new Order();
+            List<Option> optionList=new ArrayList<>();
+            for (int j = 0; j < orderDto[i].getOptionList().size(); j++) {
+                Optional<Option> proOpt= optionService.findById( orderDto[i].getOptionList().get(i));
+                proOpt.ifPresent(optionList::add);
+            }
+            OrderGroup orderGroup= orderDto[i].getOrderGroup();
+            order.setDishId(orderDto[i].getDishId());
+            order.setOptionList(optionList);
+            order.setQuantity(orderDto[i].getQuantity());
+            order.setOrderGroup(orderGroup);
+            orders.add(order);
+            orderService.save(order);
+
         }
-       Optional<OrderGroup> orderGroup= orderGroupService.findById(orderDto.getOrderGroupId());
-        order.setDishId(orderDto.getDishId());
-        order.setOptionList(optionList);
-        order.setQuantity(orderDto.getQuantity());
-        order.setOrderGroup(orderGroup.get());
-        return new ResponseEntity<>(orderService.save(order),HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>(orders,HttpStatus.CREATED);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<?> findAll(){
+        Iterable<Order> orderAll = orderService.findAll();
+        return new ResponseEntity<>(orderAll, HttpStatus.OK);
     }
 
 

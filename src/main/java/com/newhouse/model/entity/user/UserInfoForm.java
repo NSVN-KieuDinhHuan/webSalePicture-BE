@@ -14,18 +14,12 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserInfoForm {
-
-    @NotEmpty(message = "Không được để trống")
     private String username;
-
     @Email
     @NotEmpty(message = "Không được để trống")
     private String email;
 
     @NotEmpty(message = "Không được để trống")
-    @Size(min = 6)
-    private String password;
-
     @Pattern(regexp = "^[0](\\\\+\\\\d{1,3}\\\\s?)?((\\\\(\\\\d{3}\\\\)\\\\s?)|(\\\\d{3})(\\\\s|-?))(\\\\d{3}(\\\\s|-?))(\\\\d{3})(\\\\s?(([E|e]xt[:|.|]?)|x|X)(\\\\s?\\\\d+))?")
     private String phone;
 
@@ -36,4 +30,5 @@ public class UserInfoForm {
     private String fullName;
 
     private String address;
+    private String password;
 }

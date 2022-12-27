@@ -38,12 +38,18 @@ public class OrderGroupController {
     IOptionService productOptService;
 
     @PostMapping
-    public ResponseEntity<OrderGroup> saveOrderList(@RequestBody OrderGroupDto orderGroupDto) {
+    public ResponseEntity<OrderGroup> saveOrderGroup(@RequestBody OrderGroupDto orderGroupDto) {
         Optional<User> currentUser = userService.findByPhone(orderGroupDto.getUserPhone());
         OrderGroup orderGroup = new OrderGroup();
         orderGroup.setUser(currentUser.get());
         orderGroup.setCreateDate(orderGroupDto.getCreateDate());
         orderGroup.setStatus(orderGroupDto.getStatus());
         return new ResponseEntity<>(orderListService.save(orderGroup),HttpStatus.OK);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<?> findAll(){
+        Iterable<OrderGroup> OrderGroupAll = orderListService.findAll();
+        return new ResponseEntity<>(OrderGroupAll, HttpStatus.OK);
     }
 }
