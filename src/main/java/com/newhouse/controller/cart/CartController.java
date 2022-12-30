@@ -83,7 +83,12 @@ public class CartController {
 
     @GetMapping("/delete/cart/cart-group/{id}")
     public ResponseEntity<?> deleteCartByCartGroup( @PathVariable Long id) {
-        cartService.deleteCartByCartGroupId(id.intValue());
+        List<Cart> cartList = cartService.getCartDetailByCartID(id);
+        if(cartList !=null) {
+            cartList.forEach(x -> {
+                cartService.deleteById(x.getId());
+            });
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -109,4 +114,6 @@ public class CartController {
         cart.setQuantity(cart.getQuantity()-1);
         return new ResponseEntity<>(cartService.save(cart), HttpStatus.OK);
     }
+
+
 }

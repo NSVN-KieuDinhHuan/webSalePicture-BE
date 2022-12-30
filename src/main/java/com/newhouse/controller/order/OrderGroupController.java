@@ -52,4 +52,21 @@ public class OrderGroupController {
         Iterable<OrderGroup> OrderGroupAll = orderListService.findAll();
         return new ResponseEntity<>(OrderGroupAll, HttpStatus.OK);
     }
+
+    @PostMapping ("/{id}")
+    public ResponseEntity<OrderGroup> update(@PathVariable Long id, @ModelAttribute OrderGroupDto orderGroupDto) {
+        Optional<OrderGroup> orderGroup = orderListService.findById(id);
+        OrderGroup opt =orderGroup.get();
+        if(!orderGroup.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        opt.setStatus(orderGroupDto.getStatus());
+        return new ResponseEntity<>(orderListService.save(opt), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getOptionList(@PathVariable Long id){
+        Optional<OrderGroup> ProductOption = orderListService.findById(id);
+        return new ResponseEntity<>(ProductOption, HttpStatus.OK);
+    }
 }
